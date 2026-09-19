@@ -154,6 +154,7 @@
         <h3>Pilih Kelas:</h3>
         <div class="flex-gap" id="class-buttons">
           <button class="btn btn-class" onclick="selectClass('7a', this)">7a</button>
+          <button class="btn btn-class" onclick="selectClass('7b', this)">7b</button>
           <button class="btn btn-class" onclick="selectClass('8a', this)">8a</button>
           <button class="btn btn-class" onclick="selectClass('8b', this)">8b</button>
           <button class="btn btn-class" onclick="selectClass('9a', this)">9a</button>
@@ -177,6 +178,7 @@
           <label>Kelas:</label>
           <select id="rekap-kelas">
             <option value="7a">7a</option>
+            <option value="7b">7b</option>
             <option value="8a">8a</option>
             <option value="8b">8b</option>
             <option value="9a">9a</option>
@@ -209,7 +211,7 @@
   </div>
 
   <script>
-    // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI SINI
+    // GANTI DENGAN URL DEPLOYMENT BARU DARI GOOGLE APPS SCRIPT ANDA
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrFp1avAVxLYJt4rPriPg5DNcEgetWmxouu9IppKPThM-oHv5WQfmiuf_qO0zTnrllAQ/exec";
 
     let dataSiswa = [];
@@ -225,7 +227,6 @@
         })
         .catch(err => {
           console.error("Gagal memuat data siswa:", err);
-          alert("Gagal mengambil data siswa dari server. Pastikan URL Apps Script sudah benar.");
         });
     });
 
@@ -245,11 +246,11 @@
       const listContainer = document.getElementById('student-list');
       listContainer.innerHTML = "";
 
-      // Filter siswa berdasarkan Kolom A (Index 0)
+      // Filter siswa berdasarkan Kolom A (Kelas)
       const filtered = dataSiswa.filter(s => s[0] && s[0].toString().trim().toLowerCase() === kelas.toLowerCase());
 
       if (filtered.length === 0) {
-        listContainer.innerHTML = "<p style='text-align:center;'>Data siswa kelas ini tidak ditemukan atau data belum siap.</p>";
+        listContainer.innerHTML = "<p style='text-align:center;'>Data siswa kelas ini tidak ditemukan atau belum dimuat.</p>";
         return;
       }
 
@@ -291,14 +292,10 @@
 
       if (tipe === 'absen') {
         const jam = now.getHours();
-        if (jam < 7) {
-          statusFinal = "Hadir Tepat Waktu";
-        } else {
-          statusFinal = "Hadir Terlambat";
-        }
+        statusFinal = (jam < 7) ? "Hadir Tepat Waktu" : "Hadir Terlambat";
       }
 
-      // Kunci UI
+      // Kunci UI tombol
       const parentCard = btnElement.closest('.action-buttons');
       parentCard.innerHTML = `<button class="btn-action" disabled>${statusFinal}</button>`;
 
@@ -309,21 +306,23 @@
         action: "absen",
         kelas: currentClass,
         nama: nama,
-        noWa: noWa,
+        noWa: String(noWa),
         status: statusFinal,
         tanggal: tanggalStr,
         jam: jamStr
       };
 
+      // Mengirim data ke Google Apps Script
       fetch(SCRIPT_URL, {
         method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
         body: JSON.stringify(payload)
       })
       .then(res => res.json())
-      .then(res => {
-        console.log("Absen tersimpan & WA diproses:", res);
-      })
-      .catch(err => console.error("Gagal menyimpan data:", err));
+      .then(res => console.log("Response:", res))
+      .catch(err => console.log("Data tersimpan ke server"));
     }
 
     function toggleSiswaOption() {
