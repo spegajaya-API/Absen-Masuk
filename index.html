@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Presensi Online Pagi - UPT SMPN 3 Sutojayan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-bg: rgba(30, 41, 59, 0.75);
       --primary-cyan: #06b6d4;
       --accent-glow: #38bdf8;
       --btn-hadir: #10b981;
@@ -43,25 +43,25 @@
 
     h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--primary-cyan);
-      text-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+      text-shadow: 0 0 14px rgba(6, 182, 212, 0.6);
       letter-spacing: 1px;
     }
 
     h2 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       color: #94a3b8;
-      margin-top: 5px;
+      margin-top: 6px;
       font-weight: 500;
     }
 
     .nav-bar {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 22px;
       width: 100%;
-      max-width: 800px;
+      max-width: 850px;
       justify-content: space-between;
     }
 
@@ -69,7 +69,7 @@
       background: linear-gradient(135deg, #1e293b, #334155);
       border: 1px solid var(--primary-cyan);
       color: var(--primary-cyan);
-      padding: 10px 20px;
+      padding: 10px 22px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
@@ -91,14 +91,14 @@
       justify-content: center;
       margin-bottom: 25px;
       width: 100%;
-      max-width: 800px;
+      max-width: 850px;
     }
 
     .btn-class {
       background: rgba(30, 41, 59, 0.9);
       border: 1px solid rgba(56, 189, 248, 0.3);
       color: #e2e8f0;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
@@ -108,20 +108,20 @@
 
     .btn-class.active, .btn-class:hover {
       border-color: var(--primary-cyan);
-      background: rgba(6, 182, 212, 0.2);
+      background: rgba(6, 182, 212, 0.25);
       color: #fff;
-      box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
     }
 
     .container {
       width: 100%;
-      max-width: 800px;
+      max-width: 850px;
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      padding: 24px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
       flex-grow: 1;
     }
 
@@ -129,7 +129,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 15px;
+      padding: 12px 16px;
       margin-bottom: 12px;
       background: rgba(15, 23, 42, 0.6);
       border-left: 4px solid var(--primary-cyan);
@@ -149,8 +149,8 @@
 
     .btn-action {
       border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
+      padding: 8px 14px;
+      border-radius: 6px;
       color: #fff;
       font-weight: 600;
       cursor: pointer;
@@ -171,28 +171,122 @@
       box-shadow: none;
     }
 
-    /* Modal / Section Rekap */
-    .rekap-section {
-      display: none;
-    }
-
+    /* Rekap Styling */
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
     label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: var(--primary-cyan);
+      font-weight: 600;
+      font-size: 1rem;
     }
 
-    input, select {
+    .date-select-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .date-range-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    select {
       width: 100%;
-      padding: 10px;
+      padding: 10px 12px;
       border-radius: 6px;
       border: 1px solid #334155;
       background: #0f172a;
       color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: var(--primary-cyan);
+      box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-type-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-type {
+      flex: 1;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      color: #94a3b8;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-type.active {
+      background: var(--primary-cyan);
+      color: #0f172a;
+      border-color: var(--primary-cyan);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+    }
+
+    /* Print Table UI in App */
+    .rekap-table-wrapper {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    .rekap-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .rekap-table th, .rekap-table td {
+      padding: 10px 12px;
+      text-align: center;
+      border-bottom: 1px solid #334155;
+      font-size: 0.95rem;
+    }
+
+    .rekap-table th {
+      background: #1e293b;
+      color: var(--primary-cyan);
+      font-weight: 700;
+    }
+
+    .rekap-table td:nth-child(2) {
+      text-align: left;
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-print:hover {
+      background: linear-gradient(135deg, #059669, #047857);
     }
 
     footer {
@@ -202,7 +296,90 @@
       color: #64748b;
     }
 
+    /* MEDIA PRINT (FORMAT PDF SIAP CETAK) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+
+      header, .nav-bar, .class-selector, .rekap-form-card, footer, .btn-print, .no-print {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+
+      .print-header-pdf {
+        display: block !important;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 12px;
+      }
+
+      .print-header-pdf h2 {
+        font-size: 16pt !important;
+        color: #000 !important;
+        font-weight: 800 !important;
+        margin-bottom: 4px;
+      }
+
+      .print-header-pdf h3 {
+        font-size: 13pt !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        margin-bottom: 4px;
+      }
+
+      .print-header-pdf p {
+        font-size: 10pt !important;
+        color: #333 !important;
+      }
+
+      .rekap-table {
+        background: transparent !important;
+        color: #000 !important;
+        border: 1px solid #000 !important;
+      }
+
+      .rekap-table th, .rekap-table td {
+        border: 1px solid #000 !important;
+        color: #000 !important;
+        padding: 8px !important;
+      }
+
+      .rekap-table th {
+        background: #f1f5f9 !important;
+      }
+
+      .print-signature {
+        display: flex !important;
+        justify-content: flex-end;
+        margin-top: 40px;
+        text-align: center;
+      }
+
+      .signature-box {
+        width: 250px;
+      }
+    }
+
+    .print-header-pdf, .print-signature {
+      display: none;
+    }
+
     @media (max-width: 600px) {
+      .date-range-container {
+        grid-template-columns: 1fr;
+      }
       .student-card {
         flex-direction: column;
         align-items: flex-start;
@@ -234,7 +411,7 @@
   </div>
 
   <!-- HALAMAN UTAMA (PRESENSI) -->
-  <div id="home-page" style="width: 100%; max-width: 800px;">
+  <div id="home-page" style="width: 100%; max-width: 850px;">
     <div class="class-selector">
       <button class="btn-class" onclick="selectClass('7a', this)">Kelas 7a</button>
       <button class="btn-class" onclick="selectClass('8a', this)">Kelas 8a</button>
@@ -249,43 +426,91 @@
   </div>
 
   <!-- HALAMAN REKAP -->
-  <div id="rekap-page" class="container rekap-section">
-    <h3 style="color: var(--primary-cyan); margin-bottom: 15px;">Menu Rekapitulasi Presensi</h3>
-    
-    <div class="form-group">
-      <label>Rentang Waktu Rekap:</label>
-      <div style="display: flex; gap: 10px;">
-        <input type="date" id="tgl-mulai">
-        <input type="date" id="tgl-selesai">
+  <div id="rekap-page" class="container" style="display: none;">
+    <div class="rekap-form-card">
+      <h3 style="color: var(--primary-cyan); margin-bottom: 18px; font-size: 1.3rem;">Menu Rekapitulasi Presensi</h3>
+      
+      <!-- RENTANG WAKTU -->
+      <div class="form-group">
+        <label>Rentang Waktu Rekap:</label>
+        <div class="date-range-container">
+          <div>
+            <span style="font-size: 0.85rem; color: #94a3b8; display: block; margin-bottom: 4px;">Dari Tanggal:</span>
+            <div class="date-select-group">
+              <select id="start-tgl"></select>
+              <select id="start-bln"></select>
+              <select id="start-thn"></select>
+            </div>
+          </div>
+          <div>
+            <span style="font-size: 0.85rem; color: #94a3b8; display: block; margin-bottom: 4px;">Sampai Tanggal:</span>
+            <div class="date-select-group">
+              <select id="end-tgl"></select>
+              <select id="end-bln"></select>
+              <select id="end-thn"></select>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Pilih Kelas yang Direkap:</label>
-      <select id="rekap-kelas" onchange="toggleRekapOption()">
-        <option value="">-- Pilih Kelas --</option>
-        <option value="7a">Kelas 7a</option>
-        <option value="8a">Kelas 8a</option>
-        <option value="8b">Kelas 8b</option>
-        <option value="9a">Kelas 9a</option>
-        <option value="9b">Kelas 9b</option>
-      </select>
-    </div>
-
-    <div id="sub-rekap-option" style="display: none;" class="form-group">
-      <label>Tipe Rekap:</label>
-      <div style="display: flex; gap: 10px;">
-        <button class="btn-nav" style="flex:1;" onclick="tampilkanRekap('kelas')">Rekap Kelas</button>
-        <button class="btn-nav" style="flex:1;" onclick="tampilkanRekap('individu')">Rekap Individu</button>
+      <!-- PILIH KELAS -->
+      <div class="form-group">
+        <label>Pilih Kelas yang Direkap:</label>
+        <select id="rekap-kelas" onchange="onClassChange()">
+          <option value="">-- Pilih Kelas --</option>
+          <option value="7a">Kelas 7a</option>
+          <option value="8a">Kelas 8a</option>
+          <option value="8b">Kelas 8b</option>
+          <option value="9a">Kelas 9a</option>
+          <option value="9b">Kelas 9b</option>
+        </select>
       </div>
+
+      <!-- TIPE REKAP -->
+      <div id="tipe-rekap-wrapper" class="form-group" style="display: none;">
+        <label>Tipe Rekap:</label>
+        <div class="btn-type-group">
+          <button class="btn-type active" id="btn-rekap-kelas" onclick="setRekapType('kelas')">Rekap Kelas</button>
+          <button class="btn-type" id="btn-rekap-individu" onclick="setRekapType('individu')">Rekap Individu</button>
+        </div>
+      </div>
+
+      <!-- DROPDOWN SISWA (JIKA INDIVIDU) -->
+      <div id="siswa-dropdown-wrapper" class="form-group" style="display: none;">
+        <label>Pilih Siswa:</label>
+        <select id="rekap-siswa"></select>
+      </div>
+
+      <button class="btn-nav" style="width: 100%; margin-top: 10px;" onclick="generateRekap()">🔍 Tampilkan Rekap</button>
     </div>
 
-    <div id="rekap-siswa-dropdown" class="form-group" style="display: none;">
-      <label>Pilih Siswa:</label>
-      <select id="select-siswa"></select>
-    </div>
+    <!-- HASIL REKAP -->
+    <div id="rekap-result-container" style="display: none; margin-top: 25px;">
+      
+      <!-- HEADER KHUSUS CETAK PDF -->
+      <div class="print-header-pdf">
+        <h2>REKAP ABSEN UPT SMP NEGERI 3 SUTOJAYAN</h2>
+        <h3 id="print-sub-header">KELAS 7A</h3>
+        <p id="print-date-range">Rentang Waktu: 01 Januari 2026 s.d. 19 September 2026</p>
+      </div>
 
-    <div id="rekap-result" style="margin-top: 20px;"></div>
+      <div id="rekap-content"></div>
+
+      <div style="text-align: right;">
+        <button class="btn-print" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+      </div>
+
+      <!-- TANDA TANGAN KHUSUS CETAK PDF -->
+      <div class="print-signature">
+        <div class="signature-box">
+          <p>Sutojayan, <span id="print-current-date"></span></p>
+          <p>Pengelola Presensi,</p>
+          <br><br><br>
+          <p style="font-weight: bold; text-decoration: underline;">Azizah, S.Pd.</p>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <footer>
@@ -297,11 +522,18 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrFp1avAVxLYJt4rPriPg5DNcEgetWmxouu9IppKPThM-oHv5WQfmiuf_qO0zTnrllAQ/exec";
 
     let dataSiswa = [];
+    let dataPresensi = [];
     let currentClass = "";
+    let selectedRekapType = "kelas";
 
-    // Inisialisasi Data
+    const namaBulan = [
+      "Januari", "Februari", "Maret", "April", "Mei", "Juni", 
+      "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    ];
+
     window.onload = function() {
       checkAndResetDailyData();
+      initDateDropdowns();
       fetchSiswa();
     };
 
@@ -315,13 +547,63 @@
       }
     }
 
+    // Inisialisasi Dropdown Tanggal, Bulan, Tahun
+    function initDateDropdowns() {
+      const now = new Date();
+      const currentTgl = now.getDate();
+      const currentBln = now.getMonth();
+      const currentThn = now.getFullYear();
+
+      // Population Tanggal (1-31)
+      const populateTgl = (elemId) => {
+        const el = document.getElementById(elemId);
+        el.innerHTML = "";
+        for (let i = 1; i <= 31; i++) {
+          const val = i < 10 ? '0' + i : '' + i;
+          el.innerHTML += `<option value="${val}">${val}</option>`;
+        }
+      };
+
+      // Population Bulan
+      const populateBln = (elemId) => {
+        const el = document.getElementById(elemId);
+        el.innerHTML = "";
+        namaBulan.forEach((bln, idx) => {
+          const val = (idx + 1) < 10 ? '0' + (idx + 1) : '' + (idx + 1);
+          el.innerHTML += `<option value="${val}">${bln}</option>`;
+        });
+      };
+
+      // Population Tahun
+      const populateThn = (elemId) => {
+        const el = document.getElementById(elemId);
+        el.innerHTML = "";
+        for (let i = 2025; i <= 2030; i++) {
+          el.innerHTML += `<option value="${i}">${i}</option>`;
+        }
+      };
+
+      populateTgl('start-tgl'); populateTgl('end-tgl');
+      populateBln('start-bln'); populateBln('end-bln');
+      populateThn('start-thn'); populateThn('end-thn');
+
+      // Set Default: Start = Tanggal 1 bulan ini, End = Hari Ini
+      document.getElementById('start-tgl').value = "01";
+      document.getElementById('start-bln').value = (currentBln + 1) < 10 ? '0' + (currentBln + 1) : '' + (currentBln + 1);
+      document.getElementById('start-thn').value = currentThn;
+
+      document.getElementById('end-tgl').value = currentTgl < 10 ? '0' + currentTgl : '' + currentTgl;
+      document.getElementById('end-bln').value = (currentBln + 1) < 10 ? '0' + (currentBln + 1) : '' + (currentBln + 1);
+      document.getElementById('end-thn').value = currentThn;
+    }
+
     function fetchSiswa() {
       fetch(`${SCRIPT_URL}?action=getSiswa`)
         .then(res => res.json())
         .then(data => {
           dataSiswa = data;
         })
-        .catch(err => console.error("Gagal mengambil data:", err));
+        .catch(err => console.error("Gagal mengambil data siswa:", err));
     }
 
     function showHome() {
@@ -393,15 +675,12 @@
         }
       }
 
-      // Nonaktifkan tombol di UI
       const parentCard = btnElement.closest('.action-buttons');
       parentCard.innerHTML = `<button class="btn-action" disabled>${statusFinal}</button>`;
 
-      // Simpan status lokal agar terikat hari ini
       const studentId = `status_${currentClass}_${nama.replace(/\s+/g, '_')}`;
       localStorage.setItem(studentId, statusFinal);
 
-      // Kirim data ke Google Sheets & Fonnte
       const payload = {
         action: "absen",
         kelas: currentClass,
@@ -421,34 +700,180 @@
       .catch(err => console.error("Gagal menyimpan absen:", err));
     }
 
-    function toggleRekapOption() {
+    function onClassChange() {
       const kelas = document.getElementById('rekap-kelas').value;
-      const subOpt = document.getElementById('sub-rekap-option');
+      const tipeWrapper = document.getElementById('tipe-rekap-wrapper');
+      
       if (kelas) {
-        subOpt.style.display = 'block';
+        tipeWrapper.style.display = 'block';
+        populateSiswaDropdown(kelas);
       } else {
-        subOpt.style.display = 'none';
-        document.getElementById('rekap-siswa-dropdown').style.display = 'none';
+        tipeWrapper.style.display = 'none';
+        document.getElementById('siswa-dropdown-wrapper').style.display = 'none';
       }
     }
 
-    function tampilkanRekap(tipe) {
-      const kelas = document.getElementById('rekap-kelas').value;
-      const resultDiv = document.getElementById('rekap-result');
-
-      if (tipe === 'individu') {
-        const selectSiswa = document.getElementById('select-siswa');
-        selectSiswa.innerHTML = "";
-        const filtered = dataSiswa.filter(s => s[0].toString().toLowerCase() === kelas.toLowerCase());
-        filtered.forEach(s => {
-          selectSiswa.innerHTML += `<option value="${s[1]}">${s[1]}</option>`;
-        });
-        document.getElementById('rekap-siswa-dropdown').style.display = 'block';
-        resultDiv.innerHTML = `<p style="color:var(--primary-cyan);">Menampilkan opsi rekap individu untuk kelas ${kelas.toUpperCase()}. Klik tombol lagi setelah memilih siswa.</p>`;
+    function setRekapType(type) {
+      selectedRekapType = type;
+      if (type === 'kelas') {
+        document.getElementById('btn-rekap-kelas').classList.add('active');
+        document.getElementById('btn-rekap-individu').classList.remove('active');
+        document.getElementById('siswa-dropdown-wrapper').style.display = 'none';
       } else {
-        document.getElementById('rekap-siswa-dropdown').style.display = 'none';
-        resultDiv.innerHTML = `<p style="color:var(--primary-cyan);">Memuat data rekap kelas ${kelas.toUpperCase()}...</p>`;
+        document.getElementById('btn-rekap-individu').classList.add('active');
+        document.getElementById('btn-rekap-kelas').classList.remove('active');
+        document.getElementById('siswa-dropdown-wrapper').style.display = 'block';
       }
+    }
+
+    function populateSiswaDropdown(kelas) {
+      const select = document.getElementById('rekap-siswa');
+      select.innerHTML = "";
+      const filtered = dataSiswa.filter(s => s[0].toString().toLowerCase() === kelas.toLowerCase());
+      filtered.forEach(s => {
+        select.innerHTML += `<option value="${s[1]}">${s[1]}</option>`;
+      });
+    }
+
+    function generateRekap() {
+      const kelas = document.getElementById('rekap-kelas').value;
+      if (!kelas) {
+        alert("Silakan pilih kelas terlebih dahulu!");
+        return;
+      }
+
+      const startTgl = document.getElementById('start-tgl').value;
+      const startBln = document.getElementById('start-bln').value;
+      const startThn = document.getElementById('start-thn').value;
+      const startDateStr = `${startThn}-${startBln}-${startTgl}`;
+
+      const endTgl = document.getElementById('end-tgl').value;
+      const endBln = document.getElementById('end-bln').value;
+      const endThn = document.getElementById('end-thn').value;
+      const endDateStr = `${endThn}-${endBln}-${endTgl}`;
+
+      const contentDiv = document.getElementById('rekap-content');
+      contentDiv.innerHTML = "<p style='text-align:center;'>Memuat data rekap...</p>";
+      document.getElementById('rekap-result-container').style.display = 'block';
+
+      // Set Header Teks Cetak
+      const strStartDateIndo = `${startTgl} ${namaBulan[parseInt(startBln)-1]} ${startThn}`;
+      const strEndDateIndo = `${endTgl} ${namaBulan[parseInt(endBln)-1]} ${endThn}`;
+      document.getElementById('print-date-range').innerText = `Rentang Waktu: ${strStartDateIndo} s.d. ${strEndDateIndo}`;
+      document.getElementById('print-current-date').innerText = `${new Date().getDate()} ${namaBulan[new Date().getMonth()]} ${new Date().getFullYear()}`;
+
+      fetch(`${SCRIPT_URL}?action=getRekap`)
+        .then(res => res.json())
+        .then(data => {
+          dataPresensi = data;
+          
+          // Filter Data Rentang Waktu & Kelas
+          const filtered = dataPresensi.filter(row => {
+            const rawDate = new Date(row[0]);
+            const formattedRowDate = rawDate.toISOString().split('T')[0];
+            const matchKelas = row[2].toString().toLowerCase() === kelas.toLowerCase();
+            const matchDate = formattedRowDate >= startDateStr && formattedRowDate <= endDateStr;
+            return matchKelas && matchDate;
+          });
+
+          if (selectedRekapType === 'kelas') {
+            document.getElementById('print-sub-header').innerText = `KELAS ${kelas.toUpperCase()}`;
+            renderRekapKelas(kelas, filtered);
+          } else {
+            const siswaNama = document.getElementById('rekap-siswa').value;
+            document.getElementById('print-sub-header').innerText = `NAMA: ${siswaNama.toUpperCase()} (KELAS ${kelas.toUpperCase()})`;
+            renderRekapIndividu(siswaNama, filtered);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          contentDiv.innerHTML = "<p style='color:var(--btn-alpa); text-align:center;'>Gagal mengambil data rekap dari server.</p>";
+        });
+    }
+
+    function renderRekapKelas(kelas, presensiFiltered) {
+      const siswaInKelas = dataSiswa.filter(s => s[0].toString().toLowerCase() === kelas.toLowerCase());
+      
+      let html = `
+        <div class="rekap-table-wrapper">
+          <table class="rekap-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Siswa</th>
+                <th>Hadir Tepat Waktu</th>
+                <th>Hadir Terlambat</th>
+                <th>Sakit</th>
+                <th>Ijin</th>
+                <th>Alpa</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      siswaInKelas.forEach((s, idx) => {
+        const nama = s[1];
+        const recs = presensiFiltered.filter(p => p[3] === nama);
+        
+        const tepat = recs.filter(p => p[4] === "Hadir Tepat Waktu").length;
+        const lambat = recs.filter(p => p[4] === "Hadir Terlambat").length;
+        const sakit = recs.filter(p => p[4] === "Sakit").length;
+        const ijin = recs.filter(p => p[4] === "Ijin").length;
+        const alpa = recs.filter(p => p[4] === "Alpa").length;
+
+        html += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${nama}</td>
+            <td>${tepat}</td>
+            <td>${lambat}</td>
+            <td>${sakit}</td>
+            <td>${ijin}</td>
+            <td>${alpa}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table></div>`;
+      document.getElementById('rekap-content').innerHTML = html;
+    }
+
+    function renderRekapIndividu(namaSiswa, presensiFiltered) {
+      const recs = presensiFiltered.filter(p => p[3] === namaSiswa);
+
+      if (recs.length === 0) {
+        document.getElementById('rekap-content').innerHTML = "<p style='text-align:center; margin: 20px 0;'>Tidak ada data presensi pada rentang waktu ini.</p>";
+        return;
+      }
+
+      let html = `
+        <div class="rekap-table-wrapper">
+          <table class="rekap-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
+                <th>Status Kehadiran</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      recs.forEach((r, idx) => {
+        const tglFormatted = new Date(r[0]).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+        html += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${tglFormatted}</td>
+            <td>${r[1]} WIB</td>
+            <td>${r[4]}</td>
+          </tr>
+        `;
+      });
+
+      html += `</tbody></table></div>`;
+      document.getElementById('rekap-content').innerHTML = html;
     }
   </script>
 </body>
