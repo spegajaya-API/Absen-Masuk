@@ -441,14 +441,15 @@
       btn.classList.add('active');
     }
 
-    function selectClass(kelas, btn) {
+    // FUNGSI PILIH KELAS + SINKRONISASI SERVER OTOMATIS
+    async function selectClass(kelas, btn) {
       currentClass = kelas;
       document.querySelectorAll('.btn-class').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('class-title').innerText = `Daftar Siswa Kelas ${kelas.toUpperCase()}`;
 
       const listContainer = document.getElementById('student-list');
-      listContainer.innerHTML = "";
+      listContainer.innerHTML = "<p style='text-align: center; color: var(--text-dim); padding: 20px 0;'>Menyinkronkan data presensi...</p>";
 
       const filtered = dataSiswa.filter(s => s[0] && s[0].toString().trim().toLowerCase() === kelas.toLowerCase());
 
@@ -457,12 +458,37 @@
         return;
       }
 
+      // AMBIL DATA REKAP HARI INI LANGSUNG DARI GOOGLE SHEETS UNTUK SINKRONISASI REAL-TIME
+      const todayStr = new Date().toISOString().split('T')[0];
+      let presensiHariIni = {};
+
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=getRekap`);
+        const rekapData = await res.json();
+        
+        rekapData.forEach(row => {
+          const tglSheet = row[0] ? String(row[0]).split('T')[0] : "";
+          const kelasSheet = row[2] ? String(row[2]).trim().toLowerCase() : "";
+          const namaSheet = row[3] ? String(row[3]).trim() : "";
+          const statusSheet = row[4] ? String(row[4]).trim() : "";
+
+          if (tglSheet === todayStr && kelasSheet === kelas.toLowerCase()) {
+            presensiHariIni[namaSheet] = statusSheet;
+          }
+        });
+      } catch (e) {
+        console.error("Gagal sinkron data real-time, menggunakan data lokal fallback.", e);
+      }
+
+      listContainer.innerHTML = "";
+
       filtered.forEach(siswa => {
         const nama = siswa[1] ? siswa[1].toString().trim() : "";
         const noWa = siswa[2] ? siswa[2].toString().trim() : "";
-        const todayStr = new Date().toISOString().split('T')[0];
+        
+        // CEK DARI SERVER PERTAMA, BARU CHECK LOCALSTORAGE JIKA NETWORK LAG
         const studentKey = `absen_${todayStr}_${kelas}_${nama.replace(/\s+/g, '_')}`;
-        const savedStatus = localStorage.getItem(studentKey);
+        const savedStatus = presensiHariIni[nama] || localStorage.getItem(studentKey);
 
         const card = document.createElement('div');
         card.className = 'student-card';
