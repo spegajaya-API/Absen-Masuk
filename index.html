@@ -441,7 +441,7 @@
       btn.classList.add('active');
     }
 
-    // FUNGSI PILIH KELAS + SINKRONISASI SERVER OTOMATIS
+    // PILIH KELAS & SINKRONISASI REALTIME KE GOOGLE SHEETS
     async function selectClass(kelas, btn) {
       currentClass = kelas;
       document.querySelectorAll('.btn-class').forEach(b => b.classList.remove('active'));
@@ -458,26 +458,13 @@
         return;
       }
 
-      // AMBIL DATA REKAP HARI INI LANGSUNG DARI GOOGLE SHEETS UNTUK SINKRONISASI REAL-TIME
-      const todayStr = new Date().toISOString().split('T')[0];
+      // AMBIL DAFTAR NAMA SINKRON LANGSUNG DARI SERVER
       let presensiHariIni = {};
-
       try {
-        const res = await fetch(`${SCRIPT_URL}?action=getRekap`);
-        const rekapData = await res.json();
-        
-        rekapData.forEach(row => {
-          const tglSheet = row[0] ? String(row[0]).split('T')[0] : "";
-          const kelasSheet = row[2] ? String(row[2]).trim().toLowerCase() : "";
-          const namaSheet = row[3] ? String(row[3]).trim() : "";
-          const statusSheet = row[4] ? String(row[4]).trim() : "";
-
-          if (tglSheet === todayStr && kelasSheet === kelas.toLowerCase()) {
-            presensiHariIni[namaSheet] = statusSheet;
-          }
-        });
+        const res = await fetch(`${SCRIPT_URL}?action=getPresensiHariIni`);
+        presensiHariIni = await res.json();
       } catch (e) {
-        console.error("Gagal sinkron data real-time, menggunakan data lokal fallback.", e);
+        console.error("Gagal sinkron data presensi hari ini:", e);
       }
 
       listContainer.innerHTML = "";
@@ -486,9 +473,9 @@
         const nama = siswa[1] ? siswa[1].toString().trim() : "";
         const noWa = siswa[2] ? siswa[2].toString().trim() : "";
         
-        // CEK DARI SERVER PERTAMA, BARU CHECK LOCALSTORAGE JIKA NETWORK LAG
-        const studentKey = `absen_${todayStr}_${kelas}_${nama.replace(/\s+/g, '_')}`;
-        const savedStatus = presensiHariIni[nama] || localStorage.getItem(studentKey);
+        // Kunci unik gabungan kelas dan nama siswa
+        const keyMap = `${kelas.toLowerCase()}_${nama}`;
+        const savedStatus = presensiHariIni[keyMap];
 
         const card = document.createElement('div');
         card.className = 'student-card';
@@ -526,9 +513,6 @@
 
       const parentCard = btnElement.closest('.action-buttons');
       parentCard.innerHTML = `<button class="btn-action" disabled style="background:#334155; color:#94a3b8;">${statusFinal}</button>`;
-
-      const studentKey = `absen_${tanggalStr}_${currentClass}_${nama.replace(/\s+/g, '_')}`;
-      localStorage.setItem(studentKey, statusFinal);
 
       const payload = {
         action: "absen",
@@ -589,7 +573,6 @@
             filteredData = filteredData.filter(d => d[3] === namaSiswa);
           }
 
-          // KELOLA HEADER SUB-HEADER CETAK PDF
           document.getElementById('print-subheader-kelas').innerText = `Kelas: ${kelas.toUpperCase()}` + (tipe === 'individu' ? ` - ${namaSiswa}` : '');
           
           if (filteredData.length > 0) {
