@@ -211,22 +211,21 @@
   </div>
 
   <script>
-    // GANTI DENGAN URL DEPLOYMENT BARU DARI GOOGLE APPS SCRIPT ANDA
+    // PASTE URL WEB APP APPS SCRIPT TERBARU DI SINI
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzrFp1avAVxLYJt4rPriPg5DNcEgetWmxouu9IppKPThM-oHv5WQfmiuf_qO0zTnrllAQ/exec";
 
     let dataSiswa = [];
     let currentClass = "";
 
-    // Inisialisasi Ambil Data Siswa saat halaman dimuat
     window.addEventListener('DOMContentLoaded', () => {
       fetch(`${SCRIPT_URL}?action=getSiswa`)
         .then(res => res.json())
         .then(data => {
           dataSiswa = data;
-          console.log("Data siswa berhasil dimuat:", dataSiswa.length, "baris");
+          console.log("Data siswa dimuat:", dataSiswa.length, "baris");
         })
         .catch(err => {
-          console.error("Gagal memuat data siswa:", err);
+          console.error("Gagal load data siswa:", err);
         });
     });
 
@@ -246,17 +245,16 @@
       const listContainer = document.getElementById('student-list');
       listContainer.innerHTML = "";
 
-      // Filter siswa berdasarkan Kolom A (Kelas)
       const filtered = dataSiswa.filter(s => s[0] && s[0].toString().trim().toLowerCase() === kelas.toLowerCase());
 
       if (filtered.length === 0) {
-        listContainer.innerHTML = "<p style='text-align:center;'>Data siswa kelas ini tidak ditemukan atau belum dimuat.</p>";
+        listContainer.innerHTML = "<p style='text-align:center;'>Data siswa kelas ini tidak ditemukan.</p>";
         return;
       }
 
       filtered.forEach(siswa => {
-        const nama = siswa[1]; // Kolom B: Nama
-        const noWa = siswa[2] ? siswa[2].toString().trim() : ""; // Kolom C: No WA
+        const nama = siswa[1] ? siswa[1].toString().trim() : "";
+        const noWa = siswa[2] ? siswa[2].toString().trim() : "";
         const todayStr = new Date().toISOString().split('T')[0];
         const studentKey = `absen_${todayStr}_${kelas}_${nama.replace(/\s+/g, '_')}`;
         const savedStatus = localStorage.getItem(studentKey);
@@ -295,7 +293,6 @@
         statusFinal = (jam < 7) ? "Hadir Tepat Waktu" : "Hadir Terlambat";
       }
 
-      // Kunci UI tombol
       const parentCard = btnElement.closest('.action-buttons');
       parentCard.innerHTML = `<button class="btn-action" disabled>${statusFinal}</button>`;
 
@@ -312,7 +309,6 @@
         jam: jamStr
       };
 
-      // Mengirim data ke Google Apps Script
       fetch(SCRIPT_URL, {
         method: "POST",
         headers: {
@@ -321,8 +317,8 @@
         body: JSON.stringify(payload)
       })
       .then(res => res.json())
-      .then(res => console.log("Response:", res))
-      .catch(err => console.log("Data tersimpan ke server"));
+      .then(res => console.log("Response server:", res))
+      .catch(err => console.log("Data terkirim"));
     }
 
     function toggleSiswaOption() {
@@ -367,8 +363,7 @@
           renderRekapTable(filteredData);
         })
         .catch(err => {
-          alert("Gagal mengambil data rekap dari server.");
-          console.error(err);
+          alert("Gagal mengambil data rekap.");
         });
     }
 
