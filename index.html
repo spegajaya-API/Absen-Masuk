@@ -424,6 +424,7 @@
 
     let dataSiswa = [];
     let currentClass = "";
+    let autoRefreshTimer = null; // Timer untuk sinkronisasi otomatis real-time
 
     window.addEventListener('DOMContentLoaded', () => {
       fetch(`${SCRIPT_URL}?action=getSiswa`)
@@ -439,17 +440,44 @@
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
       document.getElementById(viewId).classList.add('active');
       btn.classList.add('active');
+
+      // Hentikan timer jika pengguna berpindah ke tab Rekap
+      if (viewId !== 'input-view' && autoRefreshTimer) {
+        clearInterval(autoRefreshTimer);
+        autoRefreshTimer = null;
+      }
     }
 
-    // PILIH KELAS & SINKRONISASI REALTIME KE GOOGLE SHEETS
+    // PILIH KELAS & SINKRONISASI REAL-TIME
     async function selectClass(kelas, btn) {
       currentClass = kelas;
-      document.querySelectorAll('.btn-class').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+
+      if (btn) {
+        document.querySelectorAll('.btn-class').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
       document.getElementById('class-title').innerText = `Daftar Siswa Kelas ${kelas.toUpperCase()}`;
 
+      // Muat data kelas pertama kali
+      await renderDaftarSiswa(kelas);
+
+      // Jalankan interval sinkronisasi otomatis tiap 5 detik
+      if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+      autoRefreshTimer = setInterval(() => {
+        if (currentClass) {
+          renderDaftarSiswa(currentClass, true); // Refresh halus di background
+        }
+      }, 5000); 
+    }
+
+    // FUNGSI RENDER SISWA BESERTA STATUS SINKRONISASI REALTIME
+    async function renderDaftarSiswa(kelas, isSilent = false) {
       const listContainer = document.getElementById('student-list');
-      listContainer.innerHTML = "<p style='text-align: center; color: var(--text-dim); padding: 20px 0;'>Menyinkronkan data presensi...</p>";
+      
+      if (!isSilent) {
+        listContainer.innerHTML = "<p style='text-align: center; color: var(--text-dim); padding: 20px 0;'>Menyinkronkan data presensi...</p>";
+      }
 
       const filtered = dataSiswa.filter(s => s[0] && s[0].toString().trim().toLowerCase() === kelas.toLowerCase());
 
@@ -530,7 +558,10 @@
         body: JSON.stringify(payload)
       })
       .then(res => res.json())
-      .then(res => console.log("Response:", res))
+      .then(res => {
+        // Panggil render halus segera setelah absen dikirim
+        renderDaftarSiswa(currentClass, true);
+      })
       .catch(err => console.log("Terproses"));
     }
 
